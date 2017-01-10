@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """
     This is a module docstring !
 """
@@ -35,10 +35,10 @@ def treat_film(file_name):
         data = temp[1].split("(")
         date = int(data[1][0:4])
         grade = int(temp[2][0:1])
-        print temp
-        print data
-        print date
-        print grade
+        print(temp)
+        print(data)
+        print(date)
+        print(grade)
         if dico.has_key(data[0]):
             dico[data[0]] = dico[data[0]].append((temp[0], grade, date))
         else:
@@ -56,11 +56,11 @@ def main():
         main function
     """
     #1
-    print count_jugment(parse())
+    print(count_jugment(parse()))
     #2
     (dico, old, recent) = treat_film(parse())
-    print "films: {3}\noldest: {1}\nmost recent: {2}\n".format(old,
+    print("films: {3}\noldest: {1}\nmost recent: {2}\n".format(old,
                                                                recent,
-                                                               len(dico.keys()))
+                                                               len(dico.keys())))
 
 main()
