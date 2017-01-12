@@ -114,6 +114,11 @@ def main():
     print("Nombre de films différents : " + str(len(films))
           + "\nLe plus recent date de " + str(recent)
           + "\nLe plus vieux date de " + str(old))
+    #Q4
+    print("Moyenne : " + str(avg)
+          + "\nEcart type : " + str(std_dev)
+          + "\nPlus petit nombre de jugements : " + str(nb_min)
+          + "\nPlus grand nombre de jugements : " + str(nb_max))
     #Q3
     for nb_note in marks:
         plt.bar(index, nb_note)
@@ -123,10 +128,5 @@ def main():
     plt.xlabel("Notes")
     plt.grid(True)
     plt.show()
-    #Q4
-    print("Moyenne : " + str(avg)
-          + "\nEcart type : " + str(std_dev)
-          + "\nPlus petit nombre de jugements : " + str(nb_min)
-          + "\nPlus grand nombre de jugements : " + str(nb_max))
 
 main()
