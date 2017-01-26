@@ -4,27 +4,30 @@
 import math
 import matplotlib.pyplot as plt
 
-def pfun(p, r, N):
+
+def pfun(p, r, n):
     """
         Calcul de la concentration de mesure
     """
-    return ((p ** r) * ((1 - p) ** (N - r)))
+    return (p ** r) * ((1 - p) ** (n - r))
 
-def bibi(r, N):
+
+def bibi(r, n):
     """
         Calcul coefficient binomial
     """
-    return (math.factorial(N) / (math.factorial(r) * math.factorial(N - r)))
+    return math.factorial(n) / (math.factorial(r) * math.factorial(n - r))
+
 
 def main():
     p = 0.1
-    N = 100
-    N2 = 1000
+    n = 100
+    n2 = 1000
     l1 = list()
     l2 = list()
     for r in range(0, 100):
-        l1.append(pfun(p, r, N) * bibi(r, N))
-        l2.append(pfun(p, r, N2) * bibi(r, N2))
+        l1.append(pfun(p, r, n) * bibi(r, n))
+        l2.append(pfun(p, r, n2) * bibi(r, n2))
     plt.grid(True)
     plt.plot(l1)
     plt.plot(l2)
