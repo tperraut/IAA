@@ -7,6 +7,7 @@ import argparse
 import math
 import matplotlib.pyplot as plt
 
+
 def parse():
     """
         Parse file
@@ -15,6 +16,7 @@ def parse():
     parser.add_argument("fp", metavar="FILE_NAME", type=open,
                         help="file in csv")
     return parser.parse_args()
+
 
 def count_jugment(file_name):
     """
@@ -25,6 +27,7 @@ def count_jugment(file_name):
     for _ in file_name.fp:
         jugment += 1
     return jugment
+
 
 def extract_data(jug_per_user):
     """
@@ -45,7 +48,7 @@ def extract_data(jug_per_user):
     avg = float(nb_sum) / float(nb_users)
     for _, value in jug_per_user.items():
         std_dev += (float(value) - avg) ** 2
-    return (avg, math.sqrt(std_dev), nb_min, nb_max, nb_users)
+    return avg, math.sqrt(std_dev), nb_min, nb_max, nb_users
 
 
 def treat_data(file_name):
@@ -63,41 +66,42 @@ def treat_data(file_name):
     user_id = ""
 
     for line in file_name.fp:
-        #Number of jugment
+        # Number of jugment
         jugment += 1
-        #ID|TITLE|GRADE
+        # ID|TITLE|GRADE
         tmp = line.split("|")
-        #User ID
+        # User ID
         user_id = tmp[0]
-        #TITLE (DATE)
+        # TITLE (DATE)
         title = tmp[1]
-        #Cut the date
+        # Cut the date
         try:
             date = int(tmp[1][-5:-1])
         except ValueError:
             date = old
-        #Mark with \n cuted
+        # Mark with \n cuted
         mark = int(tmp[2][0:1])
-        #Number of marks
+        # Number of marks
         marks[mark] += 1
-        #Films dictionnary
+        # Films dictionnary
         if films.has_key(title):
             films[title] += user_id
         else:
             films[title] = list(user_id)
-        #Find the date of the most recent and the oldest films
+        # Find the date of the most recent and the oldest films
         if recent is 0:
             recent = date
         if old is 0:
             old = date
         old = min(old, date)
         recent = max(recent, date)
-        #Count jugment per user
+        # Count jugment per user
         if jug_per_user.has_key(user_id):
             jug_per_user[user_id] += 1
         else:
             jug_per_user[user_id] = 1
-    return (jugment, films, old, recent, marks, extract_data(jug_per_user))
+    return jugment, films, old, recent, marks, extract_data(jug_per_user)
+
 
 def main():
     """
@@ -107,19 +111,19 @@ def main():
     (jugment, films, old, recent, marks, user_info) = treat_data(parse())
     (avg, std_dev, nb_min, nb_max, nb_users) = user_info
 
-    #Q1
+    # Q1
     print("Nombre de jugments : " + str(jugment)
           + "\nNombre d'utilisateurs : " + str(nb_users))
-    #Q2
+    # Q2
     print("Nombre de films différents : " + str(len(films))
           + "\nLe plus recent date de " + str(recent)
           + "\nLe plus vieux date de " + str(old))
-    #Q4
+    # Q4
     print("Moyenne : " + str(avg)
           + "\nEcart type : " + str(std_dev)
           + "\nPlus petit nombre de jugements : " + str(nb_min)
           + "\nPlus grand nombre de jugements : " + str(nb_max))
-    #Q3
+    # Q3
     for nb_note in marks:
         plt.bar(index, nb_note)
         index += 1
@@ -128,5 +132,6 @@ def main():
     plt.xlabel("Notes")
     plt.grid(True)
     plt.show()
+
 
 main()
